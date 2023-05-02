@@ -1,0 +1,26 @@
+<!-- Store this code in 'register.html' file inside the 'templates' folder -->
+ 
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title> shell </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">             
+    </head>
+    <body></br></br></br></br></br>
+        <div align="center">
+          <div align="center" class="border">
+             <div class="header">
+                <h1 class="word">Shell</h1>
+             </div></br></br></br>
+            <h2 class="word">
+                <form action="{{ url_for('shellrun') }}" method="post">
+                  <div class="msg"></div>
+                    <input id="command" name="command" type="text" placeholder="Enter Your command" class="textbox"/></br></br>
+                    <input type="submit" class="btn" value="submit"></br>
+                </form>
+            </h2>
+            <pre>{{ command_output }}</pre>
+          </div>
+        </div>
+    </body>
+</html>

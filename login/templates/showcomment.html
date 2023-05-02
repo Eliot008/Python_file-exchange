@@ -1,0 +1,29 @@
+<!-- Store this code in 'register.html' file inside the 'templates' folder -->
+ 
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title> Register </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">             
+    </head>
+    <body>
+        <table> 
+          <thead> 
+          <tr> 
+              <th>Username</th> 
+              <th>Date</th>
+              <th>Message</th>
+          </tr> 
+          </thead> 
+          <tbody> 
+              {% for row in data %} 
+                  <tr>
+                      <td>{{row['uid']}}</td>   
+                      <td>{{row['date']}}</td> 
+                      <td>{{row['message']}}</td> 
+                  <tr> 
+              {% endfor %}
+          </tbody> 
+      </table>  
+    </body>
+</html>

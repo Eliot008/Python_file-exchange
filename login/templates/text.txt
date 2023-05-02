@@ -1,0 +1,37 @@
+@app.route('/comment/<post_id>')
+def comment_postid(post_id):
+    fid=post_id
+    return render_template('comment.html', fid=fid)
+
+@app.route('/comment', methods =['GET', 'POST'])
+def comment():
+    message = request.form['message']
+    uid = request.form['uid']
+    fid = request.form['fid']
+    date = datetime.now()
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('INSERT INTO comment VALUES (NULL, % s, % s, % s, % s)', (uid, fid, message, date))
+    mysql.connection.commit()
+    return render_template('comment.html')
+
+
+if (session['loggedin'] == True){
+   file_successfully = ''
+   if request.method == 'POST': # check if the method is post
+      f = request.files['file'] # get the file from the files object
+      # Saving the file in the required destination
+      f.save(os.path.join(app.config['UPLOAD_FOLDER'] ,secure_filename(f.filename))) # this will secure the file
+      file_name = f.filename
+      cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+      cursor.execute('INSERT INTO filedownload VALUES (NULL, % s)', (file_name, ))
+      mysql.connection.commit()
+      file_successfully = 'file uploaded successfully' # Display this message after uploading
+   else:
+      file_successfully = 'file uploaded error or the file is not selected'
+ 
+   cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+   cursor2.execute('''SELECT id_file, filename FROM filedownload''')
+   fileNameID = cursor2.fetchall()
+   
+   return render_template('upload.html', file_successfully=file_successfully, fileNameID = fileNameID)
+}
